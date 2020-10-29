@@ -36,14 +36,14 @@ class NavbarCustom extends Component {
           <NavDropdown title="Search By" id="basic-nav-dropdown">
             <NavDropdown.Item
               onSelect={() => {
-                this.setState({filter: "Genre"})
+                this.props.filterCallBack("Genre");
               }}
             >
               Genre
             </NavDropdown.Item>
             <NavDropdown.Item
               onSelect={() => {
-                this.setState({filter: "Year"})
+                this.props.filterCallBack("Year");
               }}
             >
               Year
@@ -55,7 +55,8 @@ class NavbarCustom extends Component {
             type="text"
             placeholder="Search..."
             className="mr-sm-2"
-            onChange={e => this.setState({searchBy: e.target.value})}
+            onChange={e => 
+               this.props.searchCallBack(e.target.value)}
           />
         </Form>
       </Navbar>
