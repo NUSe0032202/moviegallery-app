@@ -1,16 +1,15 @@
 import React from 'react';
 
-import Hours from '../assets/images/127Hours.jpg';
-import Deadpool from '../assets/images/Deadpool.jpg';
-import AfterEarth from '../assets/images/AfterEarth.jpg';
-import AliceinWonderland from '../assets/images/AliceinWonderland.jpg';
-import Barnyard from '../assets/images/Barnyard.jpg';
-import Duplex from '../assets/images/Duplex.jpeg';
-import Mowgli from '../assets/images/Mowgli.jpg';
-import Tomorrowland from '../assets/images/Tomorrowland.jpg';
+import movie4 from '../assets/images/movie4.jpg';
+import movie1 from '../assets/images/movie1.jpg';
+import movie6 from '../assets/images/movie6.jpg';
+import movie7 from '../assets/images/movie7.jpg';
+import movie2 from '../assets/images/movie2.jpg';
+import movie3 from '../assets/images/movie3.jpeg';
+import movie8 from '../assets/images/movie8.jpg';
+import movie5 from '../assets/images/movie5.jpg';
 
-const icons = Object.freeze({Hours,Deadpool,AfterEarth,AliceinWonderland,Barnyard,Duplex
-,Mowgli,Tomorrowland});
+const icons = Object.freeze({movie1,movie2,movie3,movie4,movie5,movie6,movie7,movie8});
 
 const Images = (props) => {
   return(

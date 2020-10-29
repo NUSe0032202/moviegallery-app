@@ -9,8 +9,8 @@ const BACKEND_API_URL = 'https://sometimes-maybe-flaky-api.gdshive.io';
 
 class MovieDisplay extends Component {
   state = {
-    movies: ["Deadpool", "AfterEarth", "Hours", "Barnyard", "Duplex", "Tomorrowland", "AliceinWonderland","Mowgli"]
-  };
+    movieData: []  
+};
 
   constructor() {
     super();
@@ -20,21 +20,22 @@ class MovieDisplay extends Component {
      axios.get(`${BACKEND_API_URL}`).then(
          res => {
              console.log(res);
+             this.setState({movieData: res.data});
          }
      );
   }
 
   renderRows() {
-    let movies = this.state.movies;
     let toRender = [],
       columns = [];
-    movies.forEach((movie, index) => {
+    this.state.movieData.forEach((movie, index) => {
+     let getMovie = movie.image.split('.')[0];
       columns.push(
         <Col md={4} key={index}>
-          <Images name={movie} />
+          <Images name={getMovie} />
         </Col>
       );
-      if (((index + 1) % 3 === 0) || (index === (movies.length - 1))) {
+      if (((index + 1) % 3 === 0) || (index === (this.state.movieData.length - 1))) {
         toRender.push(<Row key={index}>{columns}</Row>);
         columns = [];
       }
