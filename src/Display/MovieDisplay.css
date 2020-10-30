@@ -1,3 +1,7 @@
 Col {
-    background-color: grey;
+  background-color: grey;
+}
+
+img:hover {
+    border: 1px solid blue;
 }
