@@ -6,6 +6,7 @@ import { CSSTransition } from "react-transition-group";
 import ReactSpinner from "react-bootstrap-spinner";
 import "./DisplayTransition.css";
 import { connect } from "react-redux";
+import {withRouter } from 'react-router-dom';
 
 import Images from "./Image";
 
@@ -23,8 +24,8 @@ class MovieDisplay extends Component {
     filterBy: "",
   };
 
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
   }
 
   componentDidMount() {
@@ -33,7 +34,12 @@ class MovieDisplay extends Component {
       this.setState({ movieData: res.data, inProp: true });
     });
   }
-  
+
+  movieClickHandler = () => {
+      //this.props.history.push('/MovieDetails');
+    //   console.log(index);
+  }
+
   renderRows() {
     console.log("MovieDisplay filter");
     console.log(this.props.query);
@@ -62,8 +68,8 @@ class MovieDisplay extends Component {
     ref.forEach((movie, index) => {
       let getMovie = movie.image.split(".")[0];
       columns.push(
-        <Col md={4} key={index}>
-          <Images name={getMovie} />
+        <Col md={4} key={index} onClick={() => this.props.history.push({pathname:'/MovieDetails',state:this.state.movieData[index]}) }>
+          <Images name={getMovie}/>
         </Col>
       );
       if ((index + 1) % 3 === 0 || index === ref.length - 1) {

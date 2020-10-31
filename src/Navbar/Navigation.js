@@ -42,6 +42,7 @@ class NavbarCustom extends Component {
               height="30"
               className="d-inline-block align-top"
             />
+            <Link className="nav-link" to="/"></Link>
           </Navbar.Brand>
           <Nav className="mr-auto">
             <NavItem>
