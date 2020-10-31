@@ -1,7 +1,8 @@
-Col {
-  background-color: grey;
-}
-
 img:hover {
     border: 1px solid blue;
 }
+.spacer{
+    display: block;
+    height: 100px; 
+    content: '';
+  }

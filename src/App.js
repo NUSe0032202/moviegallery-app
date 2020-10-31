@@ -1,12 +1,12 @@
 import "./App.css";
 import Container from "react-bootstrap/Container";
-import Wrapper from "./Wrappper/Wrapper";
+import Navigation from "./Navbar/Navigation";
 
 function App() {
   return (
     <div className="App">
       <Container>
-          <Wrapper/>
+          <Navigation/>
       </Container>
     </div>
   );

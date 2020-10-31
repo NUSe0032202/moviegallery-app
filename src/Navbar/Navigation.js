@@ -3,65 +3,90 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Form from "react-bootstrap/Form";
 import FormControl from "react-bootstrap/FormControl";
-import Nav from "react-bootstrap/Nav";
+import { Nav, NavItem} from "react-bootstrap";
 import filmLogo from "../assets/images/filmroll.png";
+import { Route, Switch, Link } from "react-router-dom";
+import MovieDetails from "../Details/MovieDetails";
+import { connect } from "react-redux";
+import MovieDisplay from "../Display/MovieDisplay";
+
+function mapDispatchToProps(dispatch) {
+  return {
+    addQuery: (query) => dispatch(query),
+  };
+}
 
 class NavbarCustom extends Component {
   state = {
-      filter: "",
-      searchBy: ""
-  }
+    filterBy: "",
+    searchBy: "",
+  };
 
-  componentDidUpdate (props,prevState) {
-      if(prevState.filter !== this.state.filer) {
-          //console.log("Filter changed " + this.state.filter);
-          //console.log("SearchBy: " + this.state.searchBy);
-      }
+  componentDidUpdate(props, prevState) {
+    if (prevState.filterBy !== this.state.filerBy) {
+      console.log("Nav Filter changed " + this.state.filterBy);
+      console.log("Nav SearchBy: " + this.state.searchBy);
+    }
   }
 
   render() {
     return (
-      <Navbar bg="dark" variant="dark" expand="lg" fixed="top">
-        <Navbar.Brand>
-          Gallery
-          <img
-            src={filmLogo}
-            alt="film logo"
-            width="30"
-            height="30"
-            className="d-inline-block align-top"
-          />
-        </Navbar.Brand>
-        <Nav className="mr-auto">
-          <NavDropdown title="Search By" id="basic-nav-dropdown">
-            <NavDropdown.Item
-              onSelect={() => {
-                this.props.filterCallBack("Genre");
+      <div>
+        <Navbar bg="dark" variant="dark" expand="lg" fixed="top">
+          <Navbar.Brand>
+            Gallery
+            <img
+              src={filmLogo}
+              alt="film logo"
+              width="30"
+              height="30"
+              className="d-inline-block align-top"
+            />
+          </Navbar.Brand>
+          <Nav className="mr-auto">
+            <NavItem>
+              <Link className="nav-link" to="/MovieDetails">
+                Movie Details
+              </Link>
+            </NavItem>
+            <NavDropdown title="Search By" id="basic-nav-dropdown">
+              <NavDropdown.Item
+                onSelect={() => {
+                  this.props.addQuery({ type: "Filter By", payload: "Genre" });
+                }}
+              >
+                Genre
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                onSelect={() => {
+                  this.props.addQuery({ type: "Filter By", payload: "Year" });
+                }}
+              >
+                Year
+              </NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
+          <Form inline>
+            <FormControl
+              type="text"
+              placeholder="Search By..."
+              className="mr-sm-2"
+              onChange={(e) => {
+                this.props.addQuery({
+                  type: "Search By",
+                  payload: e.target.value,
+                });
               }}
-            >
-              Genre
-            </NavDropdown.Item>
-            <NavDropdown.Item
-              onSelect={() => {
-                this.props.filterCallBack("Year");
-              }}
-            >
-              Year
-            </NavDropdown.Item>
-          </NavDropdown>
-        </Nav>
-        <Form inline>
-          <FormControl
-            type="text"
-            placeholder="Search..."
-            className="mr-sm-2"
-            onChange={e => 
-               this.props.searchCallBack(e.target.value)}
-          />
-        </Form>
-      </Navbar>
+            />
+          </Form>
+        </Navbar>
+        <Switch>
+          <Route path="/MovieDetails" component={MovieDetails} />
+          <Route path="/" component={MovieDisplay} />
+        </Switch>
+      </div>
     );
   }
 }
 
-export default NavbarCustom;
+export default connect(null, mapDispatchToProps)(NavbarCustom);

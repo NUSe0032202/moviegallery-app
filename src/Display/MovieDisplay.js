@@ -1,23 +1,30 @@
 import React, { Component } from "react";
-import { Row, Col, Fade} from "react-bootstrap";
+import { Row, Col, Fade } from "react-bootstrap";
 import "./MovieDisplay.css";
 import axios from "axios";
 import { CSSTransition } from "react-transition-group";
-import ReactSpinner from 'react-bootstrap-spinner';
+import ReactSpinner from "react-bootstrap-spinner";
 import "./DisplayTransition.css";
+import { connect } from "react-redux";
 
 import Images from "./Image";
 
 const BACKEND_API_URL = "https://sometimes-maybe-flaky-api.gdshive.io";
 
+const mapStateToProps = (state) => {
+  return { query: state };
+};
+
 class MovieDisplay extends Component {
   state = {
     movieData: [],
     inProp: false,
+    searchBy: "",
+    filterBy: "",
   };
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
   }
 
   componentDidMount() {
@@ -26,33 +33,38 @@ class MovieDisplay extends Component {
       this.setState({ movieData: res.data, inProp: true });
     });
   }
+  
   renderRows() {
+    console.log("MovieDisplay filter");
+    console.log(this.props.query);
     let ref = this.state.movieData;
-    if (this.props.searchBy) {
-      if (this.props.filterBy === "Genre") {
-        console.log("List component genre");
-        ref = ref.filter((movie, index) => {
-          return movie.genre.includes(this.props.searchBy);
-        });
-      }
 
-      if (this.props.filterBy === "Year") {
-        console.log("List component year");
+    if (this.props.query.query.payload === "Genre") {
+      console.log("List component genre");
+      ref = ref.filter((movie, index) => {
+        return movie.genre.includes(this.props.query.search.payload);
+      });
+    }
+
+    if (this.props.query.query.payload === "Year") {
+      console.log("List component year");
+      if (this.props.query.search.payload !== "") {
         ref = ref.filter((movie, index) => {
-          return movie.productionYear === Number(this.props.searchBy);
+          return (
+            movie.productionYear === Number(this.props.query.search.payload)
+          );
         });
       }
     }
+
     let toRender = [],
       columns = [];
     ref.forEach((movie, index) => {
       let getMovie = movie.image.split(".")[0];
       columns.push(
-        <Fade in={this.state.inProp}>
-          <Col md={4} key={index}>
-            <Images name={getMovie} />
-          </Col>
-        </Fade>
+        <Col md={4} key={index}>
+          <Images name={getMovie} />
+        </Col>
       );
       if ((index + 1) % 3 === 0 || index === ref.length - 1) {
         toRender.push(<Row key={index}>{columns}</Row>);
@@ -65,21 +77,26 @@ class MovieDisplay extends Component {
   render() {
     return (
       <div className="MovieList">
+        <div className="spacer"></div>
+        {/* {setInterval(() => {console.log("Int");
+        console.log(this.props.query.query.searchBy);
+        console.log(this.props.query.query.filterBy);
+        console.log(this.props.query.query)},1000)} */}
         {/* <CSSTransition
           in={this.state.inProp}
           timeout={200}
           classNames="list"
           unmountOnExit
         > */}
-          {/* <h2>Welcome, click on a movie to get started</h2> */}
+        {/* <h2>Welcome, click on a movie to get started</h2> */}
         {/* </CSSTransition> */}
-        {this.state.inProp ?    
+        {this.state.inProp ? (
           this.renderRows()
-         : 
-         <ReactSpinner type="border" color="primary" size="5" />
-        }
+        ) : (
+          <ReactSpinner type="border" color="primary" size="5" />
+        )}
       </div>
     );
   }
 }
-export default MovieDisplay;
+export default connect(mapStateToProps)(MovieDisplay);
