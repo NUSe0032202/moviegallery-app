@@ -18,7 +18,7 @@ function mapDispatchToProps(dispatch) {
 
 class NavbarCustom extends Component {
   state = {
-    filterBy: "",
+    filterBy: "Search By",
     searchBy: "",
   };
 
@@ -49,9 +49,10 @@ class NavbarCustom extends Component {
                 Movie Details
               </Link>
             </NavItem>
-            <NavDropdown title="Search By" id="basic-nav-dropdown">
+            <NavDropdown title={this.state.filterBy} id="basic-nav-dropdown">
               <NavDropdown.Item
                 onSelect={() => {
+                  this.setState({filterBy: "Genre"});
                   this.props.addQuery({ type: "Filter By", payload: "Genre" });
                 }}
               >
@@ -59,6 +60,7 @@ class NavbarCustom extends Component {
               </NavDropdown.Item>
               <NavDropdown.Item
                 onSelect={() => {
+                  this.setState({filterBy: "Year"});
                   this.props.addQuery({ type: "Filter By", payload: "Year" });
                 }}
               >
