@@ -20,8 +20,7 @@ function mapDispatchToProps(dispatch) {
 
 class NavbarCustom extends Component {
   state = {
-    filterBy: "Search By",
-    searchBy: "",
+    filterBy: "Search By"
   };
 
   render() {
