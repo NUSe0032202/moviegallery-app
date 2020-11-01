@@ -1,12 +1,9 @@
 import React, { Component } from "react";
-import { Row, Col, Fade } from "react-bootstrap";
+import { Row, Col} from "react-bootstrap";
 import "./MovieDisplay.css";
 import axios from "axios";
-import { CSSTransition } from "react-transition-group";
 import ReactSpinner from "react-bootstrap-spinner";
-import "./DisplayTransition.css";
 import { connect } from "react-redux";
-import {withRouter } from 'react-router-dom';
 
 import Images from "./Image";
 
@@ -23,19 +20,18 @@ class MovieDisplay extends Component {
     searchBy: "",
     filterBy: "",
   };
-
-  constructor() {
-    super();
-  }
-
-  componentDidMount() {
-    axios.get(`${BACKEND_API_URL}`).then((res) => {
-      this.setState({ movieData: res.data, inProp: true });
-    }).catch(()=> {
-        alert("Please try refreshing the page");
-    });
-  }
   
+  componentDidMount() {
+    axios
+      .get(`${BACKEND_API_URL}`)
+      .then((res) => {
+        this.setState({ movieData: res.data, inProp: true });
+      })
+      .catch(() => {
+        alert("Please try refreshing the page");
+      });
+  }
+
   renderRows() {
     let ref = this.state.movieData;
 
@@ -60,8 +56,17 @@ class MovieDisplay extends Component {
     ref.forEach((movie, index) => {
       let getMovie = movie.image.split(".")[0];
       columns.push(
-        <Col md={4} key={index} onClick={() => this.props.history.push({pathname:'/MovieDetails',state:this.state.movieData[index]}) }>
-          <Images name={getMovie}/>
+        <Col
+          md={4}
+          key={index}
+          onClick={() =>
+            this.props.history.push({
+              pathname: "/MovieDetails",
+              state: this.state.movieData[index],
+            })
+          }
+        >
+          <Images name={getMovie} />
         </Col>
       );
       if ((index + 1) % 3 === 0 || index === ref.length - 1) {
@@ -76,18 +81,6 @@ class MovieDisplay extends Component {
     return (
       <div className="MovieList">
         <div className="spacer"></div>
-        {/* {setInterval(() => {console.log("Int");
-        console.log(this.props.query.query.searchBy);
-        console.log(this.props.query.query.filterBy);
-        console.log(this.props.query.query)},1000)} */}
-        {/* <CSSTransition
-          in={this.state.inProp}
-          timeout={200}
-          classNames="list"
-          unmountOnExit
-        > */}
-        {/* <h2>Welcome, click on a movie to get started</h2> */}
-        {/* </CSSTransition> */}
         {this.state.inProp ? (
           this.renderRows()
         ) : (

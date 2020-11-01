@@ -5,11 +5,7 @@ import { Card } from "react-bootstrap";
 import "./MovieDetails.css";
 
 class MovieDetails extends Component {
- 
-  constructor(props) {
-    super(props);
-  }
-
+  
   render() {
     return (
       <div>
