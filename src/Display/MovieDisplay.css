@@ -1,4 +1,4 @@
-img:hover {
+.col-md-4 img:hover {
     border: 1px solid blue;
 }
 .spacer{

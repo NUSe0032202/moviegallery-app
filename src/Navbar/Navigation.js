@@ -32,8 +32,8 @@ class NavbarCustom extends Component {
             <img
               src={filmLogo}
               alt="film logo"
-              width="30"
-              height="30"
+              width="29"
+              height="29"
               className="d-inline-block align-top"
             />
           </Navbar.Brand>
