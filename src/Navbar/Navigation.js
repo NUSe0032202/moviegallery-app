@@ -24,13 +24,6 @@ class NavbarCustom extends Component {
     searchBy: "",
   };
 
-  componentDidUpdate(props, prevState) {
-    if (prevState.filterBy !== this.state.filerBy) {
-      console.log("Nav Filter changed " + this.state.filterBy);
-      console.log("Nav SearchBy: " + this.state.searchBy);
-    }
-  }
-
   render() {
     return (
       <div className="NavigationList">

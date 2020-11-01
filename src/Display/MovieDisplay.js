@@ -30,7 +30,6 @@ class MovieDisplay extends Component {
 
   componentDidMount() {
     axios.get(`${BACKEND_API_URL}`).then((res) => {
-      console.log(res);
       this.setState({ movieData: res.data, inProp: true });
     }).catch(()=> {
         alert("Please try refreshing the page");
@@ -38,19 +37,15 @@ class MovieDisplay extends Component {
   }
   
   renderRows() {
-    console.log("MovieDisplay filter");
-    console.log(this.props.query);
     let ref = this.state.movieData;
 
     if (this.props.query.query.payload === "Genre") {
-      console.log("List component genre");
       ref = ref.filter((movie, index) => {
         return movie.genre.includes(this.props.query.search.payload);
       });
     }
 
     if (this.props.query.query.payload === "Year") {
-      console.log("List component year");
       if (this.props.query.search.payload !== "") {
         ref = ref.filter((movie, index) => {
           return (

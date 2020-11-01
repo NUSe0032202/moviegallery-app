@@ -5,32 +5,28 @@ import { Card } from "react-bootstrap";
 import "./MovieDetails.css";
 
 class MovieDetails extends Component {
-   state = {
-      movieData: {}
-   };
-
+ 
   constructor(props) {
     super(props);
-    if (!(this.props.location.state === null)) {
-      console.log("In movie details");
-      console.log(this.props.location.state);
-      this.state.movieData = this.props.location.state;
-    }
   }
+
   render() {
     return (
       <div>
         <div className="spacer"></div>
-        {this.state.movieData ? (
-          <Card bg="light">
+        {this.props.location.state ? (
+          <Card bg="light" className="text-center p-3">
             <Card.Body>
-              <Card.Title>{this.state.movieData.name}</Card.Title>
+              <Card.Title>{this.props.location.state.name}</Card.Title>
+              <br/>
+              <Card.Subtitle className="mb-2 text-muted"><p>Genre: {this.props.location.state.genre}</p>
+              <p>Year of Release: {this.props.location.state.productionYear}</p>
+              </Card.Subtitle>
+              <Card.Text>
+                <br/>
+                {this.props.location.state.synopsis.replaceAll("<br />", "\n")}
+              </Card.Text>
             </Card.Body>
-            <Card.Text>
-              <p>Genre: {this.state.movieData.genre}</p>
-              <p>Year of Release: {this.state.movieData.productionYear}</p>
-              <p>Synopsis: {this.state.movieData.synopsis.replaceAll("<br />","\n")}</p>
-            </Card.Text>
           </Card>
         ) : (
           <h2>Click on a movie in the main page for details!</h2>
