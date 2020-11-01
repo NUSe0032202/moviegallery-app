@@ -32,14 +32,11 @@ class MovieDisplay extends Component {
     axios.get(`${BACKEND_API_URL}`).then((res) => {
       console.log(res);
       this.setState({ movieData: res.data, inProp: true });
+    }).catch(()=> {
+        alert("Please try refreshing the page");
     });
   }
-
-  movieClickHandler = () => {
-      //this.props.history.push('/MovieDetails');
-    //   console.log(index);
-  }
-
+  
   renderRows() {
     console.log("MovieDisplay filter");
     console.log(this.props.query);

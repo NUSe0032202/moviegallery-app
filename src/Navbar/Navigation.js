@@ -10,6 +10,8 @@ import MovieDetails from "../Details/MovieDetails";
 import { connect } from "react-redux";
 import MovieDisplay from "../Display/MovieDisplay";
 
+import "./Navigation.css";
+
 function mapDispatchToProps(dispatch) {
   return {
     addQuery: (query) => dispatch(query),
@@ -31,10 +33,10 @@ class NavbarCustom extends Component {
 
   render() {
     return (
-      <div>
+      <div className="NavigationList">
         <Navbar bg="dark" variant="dark" expand="lg" fixed="top">
           <Navbar.Brand>
-            Gallery
+            <a href="/">Gallery</a>
             <img
               src={filmLogo}
               alt="film logo"
@@ -42,7 +44,6 @@ class NavbarCustom extends Component {
               height="30"
               className="d-inline-block align-top"
             />
-            <Link className="nav-link" to="/"></Link>
           </Navbar.Brand>
           <Nav className="mr-auto">
             <NavItem>
