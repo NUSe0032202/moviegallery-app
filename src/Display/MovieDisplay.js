@@ -16,6 +16,7 @@ const mapStateToProps = (state) => {
 class MovieDisplay extends Component {
   state = {
     movieData: [],
+    inProp: false
   };
 
   componentDidMount() {
