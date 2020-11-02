@@ -21,4 +21,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 5. In the event any alert is shown when loading the grid/display, try refreshing the page.
 
+## How to use 
 
+1. Download the project and unzip it to the desired folder. Navigate to the project directory and run `npm install` to install the dependencies. Once done, run `npm start` to launch the application.
